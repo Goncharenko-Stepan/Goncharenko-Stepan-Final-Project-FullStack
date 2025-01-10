@@ -2,13 +2,13 @@ import express from "express";
 import "dotenv/config";
 import connectDB from "./db/index.js";
 import authRouter from "./routes/authorizationRouter.js";
-// import postRouter from "./routes/postRouter.js";
-// import commentRouter from "./routes/commentRouter.js";
-// import followRouter from "./routes/followRouter.js";
-// import notificationRouter from "./routes/notificationRouter.js";
-// import searchRouter from "./routes/searchRouter.js";
-// import messageRouter from "./routes/messageRouter.js";
-// import likeRouter from "./routes/likeRouter.js";
+import postRouter from "./routes/postRouter.js";
+import commentRouter from "./routes/commentRouter.js";
+import followRouter from "./routes/followRouter.js";
+import notificationRouter from "./routes/notificationRouter.js";
+import searchRouter from "./routes/searchRouter.js";
+import messageRouter from "./routes/messageRouter.js";
+import likeRouter from "./routes/likeRouter.js";
 
 (async () => {
   try {
@@ -22,13 +22,13 @@ import authRouter from "./routes/authorizationRouter.js";
     });
 
     app.use("/api/auth", authRouter);
-    // app.use("/api/post", postRouter);
-    // app.use("/api/comment", commentRouter);
-    // app.use("/api/follow", followRouter);
-    // app.use("/api/notification", notificationRouter);
-    // app.use("/api/search", searchRouter);
-    // app.use("/api/message", messageRouter);
-    // app.use("/api/like", likeRouter);
+    app.use("/api/post", postRouter);
+    app.use("/api/comment", commentRouter);
+    app.use("/api/follow", followRouter);
+    app.use("/api/notification", notificationRouter);
+    app.use("/api/search", searchRouter);
+    app.use("/api/message", messageRouter);
+    app.use("/api/like", likeRouter);
 
     app.listen(PORT, () => {
       console.log(`Приложение запущено на порту localhost:${PORT}`);
