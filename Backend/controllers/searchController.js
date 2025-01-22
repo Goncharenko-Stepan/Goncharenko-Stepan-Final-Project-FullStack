@@ -13,12 +13,21 @@ export const searchUsers = async (req, res) => {
         .json({ message: "Запрос поиска не может быть пустым" });
     }
 
-    const users = await User.find({ name: { $regex: query, $options: "i" } });
+    // Индексация поиска по имени пользователей для улучшения производительности
+    const users = await User.find({
+      name: { $regex: query, $options: "i" },
+    }).exec(); // Явное выполнение запроса
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: "Пользователи не найдены" });
+    }
+
     res.status(200).json(users);
   } catch (err) {
+    console.error(err);
     res
       .status(500)
-      .json({ message: "Ошибка при поиске пользователей", error: err });
+      .json({ message: "Ошибка при поиске пользователей", error: err.message });
   }
 };
 

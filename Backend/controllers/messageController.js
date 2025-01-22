@@ -4,27 +4,26 @@ import Message from "../models/Message.js";
 
 export const sendMessage = async (req, res) => {
   try {
-    const { recipientId, content } = req.body;
-    const senderId = req.user.id;
+    const { receiver, content } = req.body;
+    const sender = req.user.userId; // Извлечение userId из миддлвары
 
-    if (!recipientId || !content) {
+    if (!receiver || !content) {
       return res
         .status(400)
         .json({ message: "Получатель и текст сообщения обязательны" });
     }
 
     const message = new Message({
-      sender: senderId,
-      recipient: recipientId,
+      sender, // Установите sender из токена
+      receiver,
       content,
     });
 
     await message.save();
-
     res.status(201).json({ message: "Сообщение отправлено", data: message });
-  } catch (err) {
-    console.error("Ошибка при отправке сообщения:", err);
-    res.status(500).json({ message: "Ошибка при отправке сообщения" });
+  } catch (error) {
+    console.error("Ошибка отправки сообщения:", error);
+    res.status(500).json({ message: "Ошибка сервера", error });
   }
 };
 
@@ -32,15 +31,15 @@ export const sendMessage = async (req, res) => {
 
 export const getMessages = async (req, res) => {
   try {
-    const { recipientId } = req.params;
-    const senderId = req.user.id;
+    const { recipientId } = req.params; // Получение ID получателя из параметров маршрута
+    const senderId = req.user.id; // Получение ID отправителя из авторизации
 
     const messages = await Message.find({
       $or: [
         { sender: senderId, recipient: recipientId },
         { sender: recipientId, recipient: senderId },
       ],
-    }).sort({ createdAt: 1 });
+    }).sort({ createdAt: 1 }); // Сортировка сообщений по времени создания
 
     res.status(200).json(messages);
   } catch (err) {

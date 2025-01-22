@@ -2,7 +2,12 @@ import mongoose from "mongoose";
 
 const notificationSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true, // Индексирование для быстрого поиска по user
+    },
     type: {
       type: String,
       enum: ["like", "comment", "follow", "message", "other"],
@@ -13,7 +18,7 @@ const notificationSchema = new mongoose.Schema(
     relatedPost: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
     relatedUser: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
-  { timestamps: true }
+  { timestamps: true } // Автоматическое добавление createdAt и updatedAt
 );
 
 export default mongoose.model("Notification", notificationSchema);

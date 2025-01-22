@@ -3,6 +3,7 @@ const attachSocketEvents = (io, socket) => {
     console.log("Новое сообщение: ", data);
     io.to(data.recipientId).emit("recivientMessage", data);
   });
+
   socket.on("sendNotification", (data) => {
     console.log("Уведомление:", data);
     io.to(data.userId).emit("receiveNotification", data);

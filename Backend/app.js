@@ -1,7 +1,9 @@
 import express from "express";
 import "dotenv/config";
 import connectDB from "./db/index.js";
-import authorizationRouter from "./routes/authorizationRouter.js";
+
+// ////////////// IMPORT ROUTES ////////////////////
+import authRouter from "./routes/authorizationRouter.js";
 import commentRouter from "./routes/commentRouter.js";
 import followRouter from "./routes/followRouter.js";
 import likeRouter from "./routes/likeRouter.js";
@@ -28,6 +30,8 @@ import attachSocketEvents from "./socket/events.js";
     await connectDB();
     app.use(express.json());
 
+    // /////////////// HOME PAGE ///////////////
+
     app.get("/", (_, res) => {
       res.send("Вы находитесь на главной странице приложения");
     });
@@ -41,12 +45,8 @@ import attachSocketEvents from "./socket/events.js";
     app.use("/api/message", messageRouter);
     app.use("/api/like", likeRouter);
 
-    // //////////// HOME PAGE ////////////////
-    app.get("/", (_, res) => {
-      res.send("Вы находитесь на главной странице приложения");
-    });
+    // /////////////// Socket.IO EVENTS ///////////////
 
-    // //////////// Socket.IO EVENTS ////////////
     io.on("connection", (socket) => {
       console.log(`Пользователь подключился: ${socket.id}`);
       attachSocketEvents(io, socket);
@@ -56,7 +56,7 @@ import attachSocketEvents from "./socket/events.js";
       });
     });
 
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Приложение запущено на порту localhost:${PORT}`);
     });
   } catch (error) {

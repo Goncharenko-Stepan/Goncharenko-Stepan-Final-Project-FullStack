@@ -2,18 +2,35 @@ import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
-      return res.status(401).json({ message: "Требуется авторизация" });
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ message: "Необходима авторизация" });
     }
 
-    // Верификация токена
+    const token = authHeader.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ message: "Токен не найден в заголовке" });
+    }
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    if (!decoded) {
+      return res.status(401).json({ message: "Не удалось декодировать токен" });
+    }
+
+    req.user = decoded; // Добавляем данные пользователя в запрос
+
     next();
   } catch (err) {
-    console.error("Ошибка аутентификации:", err);
-    res.status(401).json({ message: "Неверный или истекший токен" });
+    if (err.name === "TokenExpiredError") {
+      return res
+        .status(401)
+        .json({ message: "Токен истёк. Пожалуйста, войдите снова." });
+    }
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({ message: "Неверный токен" });
+    }
+    console.error("Ошибка в мидлваре авторизации:", err);
+    return res.status(500).json({ message: "Ошибка авторизации" });
   }
 };
 
