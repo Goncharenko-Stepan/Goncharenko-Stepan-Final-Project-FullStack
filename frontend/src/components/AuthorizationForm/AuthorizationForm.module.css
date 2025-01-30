@@ -1,0 +1,26 @@
+.error {
+  font-size: 12;
+  color: #ff0014;
+}
+
+.formcontainer input {
+  background-color: #fafafa;
+  height: 38px;
+  border: 1px solid black;
+  padding-left: 8px;
+  color: #000000;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.formContainer input::placeholder {
+  color: #737373;
+  font-size: 12px;
+}
+
+.formContainer button {
+  background-color: #0095f6;
+  color: #ffffff;
+  height: 38px;
+  border-radius: 3px;
+}
