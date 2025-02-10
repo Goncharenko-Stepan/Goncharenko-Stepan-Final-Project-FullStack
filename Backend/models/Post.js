@@ -25,10 +25,12 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  likes: {
-    type: Number,
-    default: 0,
-  },
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // ID пользователей, которые лайкнули
+    },
+  ],
   comments: [
     {
       user: {
@@ -44,7 +46,6 @@ const postSchema = new mongoose.Schema({
   ],
 });
 
-// Модель поста
 const Post = mongoose.model("Post", postSchema);
 
 export default Post;

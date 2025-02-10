@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.imageWrapper {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.backgroundImage {
+  display: none;
+}
+
+@media (min-width: 976px) {
+  .backgroundImage {
+    display: block;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dbdbdb;
+  padding: 24px 40px;
+  width: 100%;
+  max-width: 350px;
+  height: 100%;
+  max-height: 412px;
+  min-height: 450px; /* Установим минимальную высоту */
+}
+
+.divider {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  color: #dbdbdb;
+  margin-bottom: 70px;
+  margin-top: 16px;
+}
+
+.dividerText {
+  padding-top: 14px;
+  font-size: 12px;
+  color: #737373;
+}
+
+.link {
+  color: #00376b;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.unitedFormContainer {
+  padding-left: 32px;
+}
+
+.registerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dbdbdb;
+  padding: 26px 0;
+  margin-top: 10px;
+  width: 350px;
+}
+
+.registerText {
+  font-weight: 00;
+  text-align: center;
+  font-size: 14px;
+  color: black;
+}
+
+.registerLink {
+  font-weight: 600;
+  color: #0095f6;
+  text-decoration: none;
+  margin-left: 5px;
+}

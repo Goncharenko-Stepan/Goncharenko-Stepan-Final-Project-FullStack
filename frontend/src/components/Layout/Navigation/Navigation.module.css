@@ -1,0 +1,57 @@
+.navContainer {
+  z-index: 20;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  border-right: 1px solid gray;
+  padding: 1.75rem;
+}
+
+.navContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  display: none;
+}
+
+.logoSmall {
+  display: block;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.navText {
+  display: none;
+}
+
+.profileImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}

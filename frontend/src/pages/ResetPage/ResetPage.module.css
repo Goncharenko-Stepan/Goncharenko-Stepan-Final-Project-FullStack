@@ -1,0 +1,89 @@
+.dividerText {
+  padding-top: 14px;
+  font-size: 12px;
+  color: #737373;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  flex-direction: row;
+  color: #737373;
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+.registerLink {
+  color: #262626;
+  font-size: 14px;
+  text-decoration: none;
+}
+.formContainer {
+  max-width: 390px;
+  width: 100%;
+}
+
+.logoLink {
+  width: 97px;
+  margin: 20px auto;
+}
+.loginLink {
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+}
+.loginLinkDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #dbdbdb;
+  width: 90%;
+  max-width: 390px;
+  background-color: #fafafa;
+  border-top: none;
+  padding: 16px 0;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 40px;
+  width: 90%;
+  margin-top: 84px;
+  padding: 40px 20px;
+  height: 100%;
+  max-height: 540px;
+  border: 1px solid #dbdbdb;
+  max-width: 390px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.textSize2 {
+  size: 16px;
+  text-align: center;
+  color: black;
+  font-weight: 600;
+  margin-top: 14px;
+}
+.textSize1 {
+  color: #737373;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+.logoLinkContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100vw;
+  height: 60px;
+}

@@ -12,3 +12,29 @@
 .read-the-docs {
   color: #888;
 }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Основной контейнер для десктопной версии */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 176px);
+}
+
+/* Контент для основной части страницы на десктопах */
+.main-content {
+  width: 100%;
+  min-height: calc(100vh - 176px);
+}
+
+/* Основной контейнер для мобильной версии */
+.main-container-mobile {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: calc(100vh - 81px);
+}

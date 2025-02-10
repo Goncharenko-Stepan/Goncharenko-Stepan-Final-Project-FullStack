@@ -1,6 +1,6 @@
 import Message from "../models/Message.js";
 
-// //////////// SEND MESSAGE //////////////
+// ////////////////// SEND MESSAGE ////////////////////
 
 export const sendMessage = async (req, res) => {
   try {
@@ -27,7 +27,7 @@ export const sendMessage = async (req, res) => {
   }
 };
 
-// //////////// GET MESSAGES //////////////
+// ////////////////// GET MESSAGES ////////////////////
 
 export const getMessages = async (req, res) => {
   try {
@@ -48,7 +48,7 @@ export const getMessages = async (req, res) => {
   }
 };
 
-// //////////// DELETE MESSAGE //////////////
+// ////////////////// DELETE MESSAGE ////////////////////
 
 export const deleteMessage = async (req, res) => {
   try {
@@ -64,5 +64,78 @@ export const deleteMessage = async (req, res) => {
   } catch (err) {
     console.error("Ошибка при удалении сообщения:", err);
     res.status(500).json({ message: "Ошибка при удалении сообщения" });
+  }
+};
+
+// ////////////////// GET USER CHATS ////////////////////
+
+export const getUserChats = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const chats = await Message.aggregate([
+      {
+        $match: {
+          $or: [{ sender: userId }, { receiver: userId }],
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $cond: {
+              if: { $eq: ["$sender", userId] },
+              then: "$receiver",
+              else: "$sender",
+            },
+          },
+          lastMessage: { $last: "$$ROOT" }, // Последнее сообщение в чате
+        },
+      },
+      {
+        $project: {
+          participantId: "$_id",
+          lastMessage: 1,
+        },
+      },
+    ]);
+
+    // Возвращаем чаты (список участников)
+    res.status(200).json(chats);
+  } catch (error) {
+    console.error("Ошибка при получении чатов:", error);
+    res.status(500).json({ message: "Ошибка при получении чатов" });
+  }
+};
+
+// ///////////////////////// GET CHAT /////////////////////////
+
+export const getChat = async (req, res) => {
+  try {
+    const { receiverUsername } = req.body; // Получаем имя пользователя получателя из тела запроса
+    const senderId = req.user.id; // Получаем ID текущего пользователя из мидлвары
+
+    if (!receiverUsername) {
+      return res.status(400).json({ message: "Имя получателя обязательно" });
+    }
+
+    // Ищем ID получателя по его username (это можно сделать через вашу модель User)
+    const receiver = await User.findOne({ username: receiverUsername });
+
+    if (!receiver) {
+      return res.status(404).json({ message: "Получатель не найден" });
+    }
+
+    // Получаем все сообщения между текущим пользователем и найденным получателем
+    const messages = await Message.find({
+      $or: [
+        { sender: senderId, receiver: receiver._id },
+        { sender: receiver._id, receiver: senderId },
+      ],
+    }).sort({ createdAt: 1 }); // Сортируем по времени
+
+    res.status(200).json(messages); // Возвращаем сообщения
+  } catch (error) {
+    console.error("Ошибка при получении чата:", error);
+    res.status(500).json({ message: "Ошибка при получении чата" });
   }
 };

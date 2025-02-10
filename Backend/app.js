@@ -5,12 +5,11 @@ import connectDB from "./db/index.js";
 // ////////////// IMPORT ROUTES ////////////////////
 import authRouter from "./routes/authorizationRouter.js";
 import commentRouter from "./routes/commentRouter.js";
-import followRouter from "./routes/followRouter.js";
-import likeRouter from "./routes/likeRouter.js";
+
 import messageRouter from "./routes/messageRouter.js";
-import notificationRouter from "./routes/notificationRouter.js";
+import userRouter from "./routes/userRouter.js";
 import postRouter from "./routes/postRouter.js";
-import searchRouter from "./routes/searchRouter.js";
+
 import http from "http";
 import { Server } from "socket.io";
 import attachSocketEvents from "./socket/events.js";
@@ -36,14 +35,13 @@ import attachSocketEvents from "./socket/events.js";
       res.send("Вы находитесь на главной странице приложения");
     });
 
-    app.use("/api/auth", authRouter);
-    app.use("/api/post", postRouter);
-    app.use("/api/comment", commentRouter);
-    app.use("/api/follow", followRouter);
-    app.use("/api/notification", notificationRouter);
-    app.use("/api/search", searchRouter);
-    app.use("/api/message", messageRouter);
-    app.use("/api/like", likeRouter);
+    app.use("/auth", authRouter);
+    app.use("/post", postRouter);
+    app.use("/comment", commentRouter);
+
+    app.use("/user", userRouter);
+
+    app.use("/message", messageRouter);
 
     // /////////////// Socket.IO EVENTS ///////////////
 

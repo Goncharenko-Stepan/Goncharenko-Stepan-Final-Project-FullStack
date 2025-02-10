@@ -1,0 +1,37 @@
+/* Основной контейнер футера */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto 64px;
+  height: fit-content;
+}
+
+/* Контейнер ссылок */
+
+.linksContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 24px;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Стили для ссылок */
+
+.link {
+  color: #737373;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/* Текст копирайта */
+
+.copyright {
+  color: #737373;
+  font-size: 14px;
+}

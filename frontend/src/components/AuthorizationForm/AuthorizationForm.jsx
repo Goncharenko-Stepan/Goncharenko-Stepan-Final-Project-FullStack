@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import style from "./AuthorizationForm.module.css";
 import { useNavigate } from "react-router";
+import style from "./AuthorizationForm.module.css";
 
 const AuthorizationForm = ({ type }) => {
   const navigate = useNavigate();
@@ -22,14 +22,15 @@ const AuthorizationForm = ({ type }) => {
         };
 
         console.log("Register data:", dataRegister);
-        navigate("/login"); // исправлено
+        navigate("/login");
       } else if (type === "login" && data.usernameOrEmail) {
         const dataLogin = {
           usernameOrEmail: data.usernameOrEmail,
           password: data.password,
         };
+
         console.log("Login Data:", dataLogin);
-        navigate("/"); // исправлено
+        navigate("/");
       } else if (type === "reset" && data.usernameOrEmail) {
         const dataReset = { usernameOrEmail: data.usernameOrEmail };
         console.log("Reset Password Data:", dataReset);
@@ -40,7 +41,7 @@ const AuthorizationForm = ({ type }) => {
     }
   };
 
-  let btnTitle =
+  const btnTitle =
     type === "register"
       ? "Sign up"
       : type === "login"
@@ -48,41 +49,38 @@ const AuthorizationForm = ({ type }) => {
       : "Reset your password";
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={`${style.formContainer} flex flex-col gap-1.5 text-darkgray w-full`}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className={style.formContainer}>
       {type === "register" && (
         <>
-          {/* Email */}
           <input
             type="email"
             {...register("email", { required: "Email is required" })}
             placeholder="Email"
+            className={style.input}
           />
           {errors.email && (
             <span className={style.error}>{errors.email.message}</span>
           )}
 
-          {/* Full Name */}
           <input
             {...register("fullName", {
               required: "Name is required",
               maxLength: 32,
             })}
             placeholder="Name"
+            className={style.input}
           />
           {errors.fullName && (
             <span className={style.error}>{errors.fullName.message}</span>
           )}
 
-          {/* Username */}
           <input
             {...register("username", {
               required: "Username is required",
               maxLength: 24,
             })}
             placeholder="Username"
+            className={style.input}
           />
           {errors.username && (
             <span className={style.error}>{errors.username.message}</span>
@@ -97,6 +95,7 @@ const AuthorizationForm = ({ type }) => {
               required: "Username or email is required",
             })}
             placeholder="Username or email"
+            className={style.input}
           />
           {errors.usernameOrEmail && (
             <span className={style.error}>
@@ -115,6 +114,7 @@ const AuthorizationForm = ({ type }) => {
               minLength: 8,
             })}
             placeholder="Password"
+            className={style.input}
           />
           {errors.password && (
             <span className={style.error}>
@@ -126,21 +126,19 @@ const AuthorizationForm = ({ type }) => {
 
       {type === "register" && (
         <>
-          <p className="text-xs mt-2.5 mb-4">
+          <p className={style.text}>
             People who use our service may have uploaded your contact
-            information to ICHgram{" "}
-            <a className="text-darkblue cursor-pointer">Learn More</a>
+            information to ICHgram <a className={style.link}>Learn More</a>
           </p>
-          <p className="text-xs mt-2.5 mb-4">
-            By signing up, you agree to our{" "}
-            <a className="text-darkblue cursor-pointer">Terms</a>,
-            <a className="text-darkblue cursor-pointer">Privacy Policy</a> and
-            <a className="text-darkblue cursor-pointer">Cookies Policy</a>.
+          <p className={style.text}>
+            By signing up, you agree to our <a className={style.link}>Terms</a>,
+            <a className={style.link}> Privacy Policy</a> and
+            <a className={style.link}> Cookies Policy</a>.
           </p>
         </>
       )}
 
-      <button className="mt-3.5" type="submit">
+      <button className={style.button} type="submit">
         {btnTitle}
       </button>
     </form>

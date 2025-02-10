@@ -1,95 +1,143 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-// import hashPasswordMiddleware from "../middlewares/hashPasswordMiddleware.js";
-import "dotenv/config";
+import nodemailer from "nodemailer";
 
-// /////////////////////////////////////////////////////////  Логин пользователя ///////////////////////////////////////////////////////
+////////////////////////////////// LOGIN USER //////////////////////////////////
+
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Введите корректные пароль и почту" });
+    const { usernameOrEmail, password } = req.body;
+    if (!usernameOrEmail || !password) {
+      res.status(400).send("Username or email and password is required");
+      return;
     }
-
-    const user = await User.findOne({ email });
+    // Проверяем, существует ли пользователь (по username или email)
+    const user = await User.findOne({
+      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+    });
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: "Такого пользователя не существует" });
+      res.status(404).send("User not found");
+      return;
     }
-
-    // Логи для отладки
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log("Результат сравнения пароля:", isPasswordValid);
-
-    if (!isPasswordValid) {
-      return res.status(400).json({ message: "Неверный пароль" });
+    const passwordIsValid = await bcrypt.compare(password, user.password);
+    if (!passwordIsValid) {
+      res.status(401).send("Wrong password or username");
+      return;
     }
-
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    return res.status(200).json({
-      message: "Вы вошли в аккаунт",
-      token,
-      user: { id: user._id, name: user.name, email: user.email },
-    });
-  } catch (err) {
-    console.error("Ошибка при входе пользователя:", err);
-    res.status(500).json({ message: "Ошибка при входе пользователя" });
+    if (process.env.JWT_KEY) {
+      const info = { username: user.username, id: user._id.toString() };
+      const token = jwt.sign(info, process.env.JWT_KEY, { expiresIn: "1h" });
+      res.cookie("token", token, {
+        httpOnly: true, // Запрещает доступ к cookie через JavaScript
+        secure: true, // Установите false для HTTP
+        sameSite: "none", // Настройка для кросс-доменных запросов
+        maxAge: 3600 * 1000, // 1 час в миллисекундах
+        path: "/",
+      });
+      res.status(200).json({
+        message: "Successfully logged in with token",
+        data: {
+          username: user.username,
+          id: user._id,
+          profile_image: user.profile_image,
+        },
+      });
+    } else {
+      res.status(401).send("Something went wrong");
+    }
+  } catch (error) {
+    console.error("Error logging in user: ", error);
+    res.status(500).send("Error logging in");
   }
 };
 
-// ///////////////////////////////////////////////////////// Регистрация пользователя ///////////////////////////////////////////////////////////
+////////////////////////////////// REGISTER USER //////////////////////////////////
 
 export const registerUser = async (req, res) => {
   try {
-    const { email, password, name } = req.body;
-
-    console.log("Register password: ", password);
-
-    if (!email || !password || !name) {
-      return res
+    const { username, fullName, email, password } = req.body;
+    if (!username || !password || !email || !fullName) {
+      res
         .status(400)
-        .json({ message: "Все поля обязательны для заполнения" });
+        .send("Username, email, full name and password are required");
+      return;
     }
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "Пользователь уже существует" });
+    // Проверяем, существует ли пользователь
+    const user = await User.findOne({ username: username });
+    if (user) {
+      res.status(404).send("User already exists");
+      return;
     }
-
-    // Хеширование пароля
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    console.log("Register hash: ", hashedPassword);
-
-    const newUser = new User({
-      name,
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.create({
+      username,
+      full_name: fullName,
       email,
       password: hashedPassword,
     });
+    res.status(200).send("Successfully registered!");
+  } catch (error) {
+    console.error("Error registering a user: ", error);
+    res.status(500).send("Error registering");
+  }
+};
 
-    await newUser.save();
+////////////////////////////////// RESET PASSWORD //////////////////////////////////
 
-    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+export const resetPassword = async (req, res) => {
+  try {
+    const { usernameOrEmail } = req.body;
+    if (!usernameOrEmail) {
+      res.status(400).send("Username or email is required");
+      return;
+    }
+    // Проверяем, существует ли пользователь
+    const user = await User.findOne({
+      $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+    });
+    if (!user) {
+      res.status(404).send("User not found");
+      return;
+    }
+
+    // Создаем транспортёр для отправки email через nodemailer
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // Можно использовать другой сервис
+      auth: {
+        user: process.env.EMAIL, // Укажите вашу почту в .env
+        pass: process.env.EMAIL_KEY, // Укажите пароль или App Password
+      },
     });
 
+    // Опции для письма
+    const mailOptions = {
+      from: "insta_clone@gmail.com", // Адрес отправителя
+      to: user.email, // Адрес получателя
+      subject: "Reset password", // Тема письма
+      text: "<b>Reset your password - </b> <a href='/'>Link</a>", // Текст письма
+    };
+
+    const info = await transporter.sendMail(mailOptions);
     res.status(201).json({
-      message: "Пользователь зарегистрирован успешно",
-      token,
-      user: { id: newUser._id, name: newUser.name, email: newUser.email },
+      msg: "Email sent",
+      info: info.messageId,
+      preview: nodemailer.getTestMessageUrl(info),
     });
   } catch (error) {
-    console.error("Ошибка при регистрации:", error);
-    res.status(500).json({ message: "Ошибка на сервере при регистрации" });
+    console.error("Error resetting password: ", error);
+    res.status(500).send("Error resetting password");
+  }
+};
+
+////////////////////////////////// Check Access Token //////////////////////////////////
+
+export const checkAccessToken = (req, res) => {
+  if (req.user) {
+    res
+      .status(200)
+      .json({ message: "Token is valid", username: req.user.username });
+  } else {
+    res.status(200).json({ message: "Token is not valid" });
   }
 };

@@ -1,44 +1,24 @@
 import mongoose from "mongoose";
 
-// Схема для пользователя
-const userSchema = new mongoose.Schema({
-  name: {
+const UserSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  fullName: { type: String, required: true },
+  password: { type: String, required: true },
+  bio: { type: String, default: "", maxlength: 180 },
+  website: { type: String, maxlength: 120 },
+  profileImage: {
     type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 50,
+    default:
+      "https://res.cloudinary.com/dkmunyorn/image/upload/v1737282562/profiles/cxjlx87qkz06ucag1ny4.png",
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/.+\@.+\..+/, "Please fill a valid email address"],
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-  },
-  profilePicture: {
-    type: String,
-    default: "https://www.example.com/default-profile-pic.png",
-  },
-  dateOfBirth: {
-    type: Date,
-    required: false,
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin"], // Возможные роли
-    default: "user",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  notifications: [{ type: mongoose.Types.ObjectId, ref: "Notification" }],
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  followings: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  searchResults: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
-// Модель пользователя
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", UserSchema);
 
 export default User;
