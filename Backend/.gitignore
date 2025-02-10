@@ -1,0 +1,24 @@
+# Node.js модули  
+node_modules/  
+
+# Файл конфигурации окружения  
+.env  
+
+# Файлы сборки и кеш  
+build/  
+dist/  
+.cache/  
+
+# Логи и временные файлы  
+logs/  
+*.log  
+debug.log  
+
+# Загрузки (если используешь Multer/Cloudinary)  
+uploads/  
+tmp/  
+
+#  IDE и системные файлы  
+.vscode/  
+.idea/  
+.DS_Store  
