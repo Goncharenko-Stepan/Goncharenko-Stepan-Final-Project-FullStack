@@ -1,0 +1,118 @@
+.container {
+  animation: pulse-short 1.2s ease-in-out infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 930px;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+.title {
+  width: 8rem;
+  height: 1.5rem;
+  background-color: #dbdbdb;
+  margin: 0 auto;
+}
+
+.profileWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profileHeader {
+  display: flex;
+  gap: 1rem;
+  padding: 0 1.5rem;
+}
+
+.profilePic {
+  border-radius: 50%;
+  border: 1px solid #dbdbdb;
+  width: 7rem;
+  height: 7rem;
+  object-fit: cover;
+  min-width: 150px;
+  min-height: 150px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.userName {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.placeholder {
+  width: 8rem;
+  height: 1.5rem;
+  background-color: #dbdbdb;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.followButton,
+.messageButton {
+  border-radius: 0.5rem;
+  background-color: #dbdbdb;
+  color: white;
+  font-size: 0.875rem;
+  height: 1.75rem;
+  width: 5rem;
+  max-width: 8rem;
+}
+
+.stats {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.875rem;
+  opacity: 0.3;
+}
+
+.hiddenPlaceholder {
+  display: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+  padding: 0 1.5rem;
+}
+
+.gridItem {
+  background-color: #dbdbdb;
+  height: 16rem;
+  aspect-ratio: 1;
+}
+
+@keyframes pulse-short {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}

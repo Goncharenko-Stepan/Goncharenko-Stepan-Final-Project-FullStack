@@ -1,0 +1,160 @@
+.modalBackground {
+  position: fixed;
+  z-index: 20;
+  height: calc(100vh - 81px);
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.modalContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 6rem;
+  height: 90%;
+  width: 100%;
+}
+
+.mobileHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+.backIcon,
+.moreIcon {
+  cursor: pointer;
+}
+
+.placeholder {
+  width: 8rem;
+  height: 1.5rem;
+  background-color: #dbdbdb;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: 0 1.5rem;
+  opacity: 1;
+  z-index: 10;
+  background-color: #fff;
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  height: 360px;
+  max-height: 680px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  background-color: #dbdbdb;
+}
+
+.commentSection {
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.commentUser {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  font-size: 0.75rem;
+}
+
+.commentUserAvatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: #dbdbdb;
+}
+
+.commentUserName {
+  width: 8rem;
+  height: 1.5rem;
+  background-color: #dbdbdb;
+}
+
+.commentBody {
+  display: flex;
+  gap: 1rem;
+  margin: 0.75rem 0;
+}
+
+.commentText {
+  width: 8rem;
+  height: 1.5rem;
+  background-color: #dbdbdb;
+}
+
+.commentPlaceholder {
+  width: 100%;
+  height: 6rem;
+  background-color: #dbdbdb;
+}
+
+.footer {
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.reactions {
+  display: flex;
+  gap: 0.75rem;
+  opacity: 0.3;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+.commentInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputWrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.emojiIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+.textInput {
+  width: 100%;
+  height: 2.5rem;
+  background-color: #dbdbdb;
+}
+
+.sendButton {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #dbdbdb;
+  padding-right: 2.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

@@ -29,6 +29,7 @@ export const unLikeComment = async (commentId) => {
     const response = await axiosInstance.delete(
       `/comment/unLikeComment/${commentId}`
     );
+
     return response.data;
   } catch (error) {
     console.error("Error unliking comment", error);
