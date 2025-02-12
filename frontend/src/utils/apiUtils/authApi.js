@@ -5,6 +5,7 @@ export const checkJWTToken = async () => {
     const result = await axiosInstance.get("/auth/checkAccessToken");
     return result.data.message === "Token is valid";
   } catch (error) {
-    console.error("Token is invalid " + error);
+    console.error("Token is invalid", error);
+    return false;
   }
 };

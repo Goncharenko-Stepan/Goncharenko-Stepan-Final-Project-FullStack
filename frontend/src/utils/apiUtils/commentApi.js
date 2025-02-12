@@ -8,7 +8,7 @@ export const addComment = async (content, postId) => {
     return response.data;
   } catch (error) {
     console.error("Error adding comment", error);
-    return null;
+    return false;
   }
 };
 
@@ -20,7 +20,7 @@ export const likeComment = async (commentId) => {
     return response.data;
   } catch (error) {
     console.error("Error liking comment", error);
-    return null;
+    return false;
   }
 };
 
@@ -32,6 +32,6 @@ export const unLikeComment = async (commentId) => {
     return response.data;
   } catch (error) {
     console.error("Error unliking comment", error);
-    return null;
+    return false;
   }
 };

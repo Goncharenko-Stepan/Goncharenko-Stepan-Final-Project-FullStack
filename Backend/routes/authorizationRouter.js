@@ -4,7 +4,6 @@ import {
   registerUser,
   checkAccessToken,
 } from "../controllers/authController.js";
-// import hashPassword from "../middlewares/hashPasswordMiddleware.js";
 
 const router = express.Router();
 

@@ -21,7 +21,9 @@ import attachSocketEvents from "./socket/events.js";
     const server = http.createServer(app); // HTTP-сервер
     const io = new Server(server, {
       cors: {
-        origin: "*",
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST"], // Разрешить только нужные методы
+        credentials: true, // Если есть куки или токены
       },
     });
 
@@ -38,9 +40,7 @@ import attachSocketEvents from "./socket/events.js";
     app.use("/auth", authRouter);
     app.use("/post", postRouter);
     app.use("/comment", commentRouter);
-
     app.use("/user", userRouter);
-
     app.use("/message", messageRouter);
 
     // /////////////// Socket.IO EVENTS ///////////////
