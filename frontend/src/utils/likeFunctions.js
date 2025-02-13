@@ -1,7 +1,7 @@
-import like from "../assets/reavtionIcons/like.svg";
-import liked from "../assets/reavtionIcons/liked.svg";
-import { likePost, unLikePost } from "./apiUtils/postApi";
-import { unLikeComment, likeComment } from "./apiUtils/commentApi";
+import like from "../assets/reactionIcons/like.svg";
+import liked from "../assets/reactionIcons/liked.svg";
+import { likePost, unLikePost } from "./apiUtils/postApi.js";
+import { unLikeComment, likeComment } from "./apiUtils/commentApi.js";
 
 export const onLikeComment = async (e, commentId, post, setPost) => {
   const target = e.target;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useParams } from "react-router";
 import { deletePost } from "../../../utils/apiUtils/postApi.js";
 import styles from "./PostMore.module.css";

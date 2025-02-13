@@ -1,0 +1,88 @@
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  border-right: 1px solid #ccc;
+}
+
+@media (min-width: 640px) {
+  .sidebar {
+    min-width: 250px;
+  }
+}
+
+.username {
+  font-weight: bold;
+  margin: 20px 16px;
+  font-size: 1.2rem;
+}
+
+.chatList {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 12px;
+  transition: background 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.chatItem:hover {
+  background: #f5f5f5;
+}
+
+.active {
+  background: #e0e0e0;
+}
+
+.chatImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chatInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chatUsername {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.chatMessage {
+  font-size: 12px;
+  color: gray;
+}
+
+.chatWindow {
+  flex: 1;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .chatWindow {
+    display: flex;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: flex;
+}

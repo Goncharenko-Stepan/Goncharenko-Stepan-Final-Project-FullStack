@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../store/actionCreators/userActionCreators";
-import { axiosInstance } from "./apiCalls";
+import { axiosInstance } from "./apiUtils";
 import { createPost } from "../store/actionCreators/postActionCreators";
 import { addPost } from "../store/slices/userSlice";
 

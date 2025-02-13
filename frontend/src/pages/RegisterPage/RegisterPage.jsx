@@ -1,5 +1,6 @@
 import AuthorizationForm from "../../components/AuthorizationForm/AuthorizationForm.jsx";
 import { Link } from "react-router-dom";
+import React from "react";
 import logo from "../../assets/logo.svg";
 import style from "./RegisterPage.module.css";
 

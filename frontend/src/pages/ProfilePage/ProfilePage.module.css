@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 930px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.usernameBar {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+.profileWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 0 1rem;
+}
+
+.postItem {
+  position: relative;
+  aspect-ratio: 1/1;
+}
+
+.postImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.multiplePhotosIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}

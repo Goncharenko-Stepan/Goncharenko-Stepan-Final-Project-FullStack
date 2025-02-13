@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.image {
+  max-width: 301px;
+  height: 460px;
+}
+
+.h2Text {
+  font-weight: 600;
+  font-size: 16px;
+  color: #737373;
+  max-width: 475px;
+}
+
+.h1Text {
+  font-weight: 700;
+  font-size: 36px;
+  color: #000000;
+  max-width: 625px;
+}

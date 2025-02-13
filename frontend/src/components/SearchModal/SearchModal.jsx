@@ -5,7 +5,7 @@ import { addSearchResult } from "../../store/slices/userSlice.js";
 import {
   addUserToSearchResults,
   getAllUsersForSearch,
-} from "../../utils/apiUtils/authApi.js";
+} from "../../utils/apiUtils/userApi.js";
 import cancel from "../../assets/search_cancel.svg";
 import arrow_back from "../../assets/arrow_back.svg";
 import styles from "./SearchModal.module.css";

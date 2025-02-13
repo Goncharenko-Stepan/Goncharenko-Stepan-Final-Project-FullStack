@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"; // используем "react-router-dom"
 import website_link from "../../assets/website_link.svg";
@@ -7,7 +7,7 @@ import { followUser, unfollowUser } from "../../utils/apiUtils/userApi.js";
 import { addFollowing, removeFollowing } from "../../store/slices/userSlice.js";
 import styles from "./ProfileHeader.module.css"; // Подключаем модульные стили
 
-const ProfileHeader = ({ user, profileUsername }) => {
+export const ProfileHeader = ({ user, profileUsername }) => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const isFollowingFromRedux = useSelector((state) =>

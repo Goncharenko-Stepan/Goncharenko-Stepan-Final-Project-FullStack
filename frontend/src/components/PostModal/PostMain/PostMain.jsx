@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Picker from "emoji-picker-react";
 import { useSelector } from "react-redux";
@@ -11,9 +11,9 @@ import {
 } from "../../../utils/likeFunctions";
 import { addComment } from "../../../utils/apiUtils/commentApi.js";
 import moreIcon from "../../../assets/more.svg";
-import likedIcon from "../../../assets/reactions/liked.svg";
-import likeIcon from "../../../assets/reactions/like.svg";
-import commentIcon from "../../../assets/reactions/comment.svg";
+import likedIcon from "../../../assets/reactionIcons/liked.svg";
+import likeIcon from "../../../assets/reactionIcons/like.svg";
+import commentIcon from "../../../assets/reactionIcons/comment.svg";
 import emojiIcon from "../../../assets/emoji.png";
 import styles from "./PostMain.module.css";
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./NotificationsModal.module.css";
 import arrowBack from "../../assets/arrow_back.svg";
 import { formatDate } from "../../utils/formatFunctions";

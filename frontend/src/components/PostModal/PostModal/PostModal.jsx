@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPost } from "../../../store/actionCreators/postActionCreators.js";
 import moreIcon from "../../../assets/more.svg";
 import arrowBackIcon from "../../../assets/arrow_back.svg";
-import { PostMain } from "../PostMain/PostMain.js";
+import { PostMain } from "../PostMain/PostMain.jsx";
 import { EditPostForm } from "../EditPostForm/EditPostForm.jsx";
 import { PhotoCarousel } from "../../PhotoCarousel/PhotoCarousel.jsx";
-import { PostModalSkeleton } from "../../skeletons/PostModalSkeleton.js";
+import { PostModalSkeleton } from "../../../skeletons/PostModalSkeleton/PostModalSkeleton.jsx";
 import { PostMore } from "../PostMore/PostMore.jsx";
 import styles from "./PostModal.module.css";
 

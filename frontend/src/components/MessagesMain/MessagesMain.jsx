@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useOutletContext, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import { fetchChat } from "../../utils/apiUtils/chatApi.js";

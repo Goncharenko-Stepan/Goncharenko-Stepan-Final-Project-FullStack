@@ -1,12 +1,12 @@
 import React from "react";
 import arrow_back from "../../assets/arrow_back.svg";
 import more from "../../assets/more.svg";
-import like from "../../assets/reactions/like.svg";
-import comment from "../../assets/reactions/comment.svg";
+import like from "../../assets/reactionIcons/like.svg";
+import comment from "../../assets/reactionIcons/comment.svg";
 import emoji from "../../assets/emoji.png";
 import styles from "./PostModalSkeleton.module.css";
 
-const PostModalSkeleton = () => {
+export const PostModalSkeleton = () => {
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>

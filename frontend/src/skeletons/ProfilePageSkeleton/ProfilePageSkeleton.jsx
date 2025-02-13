@@ -1,8 +1,8 @@
 import React from "react";
-import default_profile_pic from "../assets/default_profile_pic.png";
+import default_profile_pic from "../../assets/profile_pic.png";
 import styles from "./ProfilePageSkeleton.module.css";
 
-const ProfilePageSkeleton = () => {
+export const ProfilePageSkeleton = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

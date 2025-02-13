@@ -21,9 +21,9 @@ import attachSocketEvents from "./socket/events.js";
     const server = http.createServer(app); // HTTP-сервер
     const io = new Server(server, {
       cors: {
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST"], // Разрешить только нужные методы
-        credentials: true, // Если есть куки или токены
+        origin: "http://localhost:5173", // Разрешаем только этот адрес
+        methods: ["GET", "POST"], // Разрешаем только GET и POST запросы
+        credentials: true, // Включаем поддержку кук и токенов
       },
     });
 

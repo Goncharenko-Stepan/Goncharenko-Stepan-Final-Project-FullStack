@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./HomePageSkeleton.module.css";
-import like from "../../assets/reavtionIcons/like.svg";
-import comment from "../../assets/reavtionIcons/comment.svg";
+import like from "../../assets/reactionIcons/like.svg";
+import comment from "../../assets/reactionIcons/comment.svg";
 
 export const HomePageSkeleton = () => {
   return (

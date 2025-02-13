@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import lock from "../../assets/lock.svg";
+import React from "react";
 import styles from "./ResetPage.module.css";
 import AuthorizationForm from "../../components/AuthorizationForm/AuthorizationForm.jsx";
 

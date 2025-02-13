@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 90vw;
+  max-width: 1000px;
+}
+
+.postWrapper {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  max-height: 80vh;
+  background: #fff;
+}
+
+@media (min-width: 768px) {
+  .postWrapper {
+    flex-direction: row;
+  }
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 280px;
+  max-width: 460px;
+  max-height: 680px;
+}
+
+.postImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.postDetails {
+  width: 100%;
+  min-height: 40vh;
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+}

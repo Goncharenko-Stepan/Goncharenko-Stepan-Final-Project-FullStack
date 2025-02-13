@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid gray;
+}
+
+.emptyWidth {
+  width: 56px;
+}
+
+.headerTitle {
+  font-weight: bold;
+}
+
+.icons {
+  display: flex;
+  gap: 8px;
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 24px auto;
+  max-width: 600px;
+}
+
+.postContainer {
+  border-bottom: 1px solid gray;
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.profileImage {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.postDate {
+  font-size: 12px;
+  color: gray;
+}
+
+.postImage {
+  width: 100%;
+  object-fit: contain;
+}
+
+.reactions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.likeIcon,
+.commentIcon {
+  width: 24px;
+  cursor: pointer;
+}
+
+.likesCount {
+  font-weight: bold;
+}
+
+.postContent {
+  font-size: 12px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.comments {
+  color: gray;
+}
+
+.doneContainer {
+  text-align: center;
+  padding-bottom: 32px;
+}
+
+.doneIcon {
+  margin-bottom: 8px;
+}
