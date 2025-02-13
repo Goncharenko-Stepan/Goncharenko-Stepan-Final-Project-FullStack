@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import React from "react";
 import style from "./AuthorizationForm.module.css";
 
 const AuthorizationForm = ({ type }) => {

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { MainRouter } from "./routes/MainRouter.jsx";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PrivateRoute } from "./routes/PrivateRoute.jsx";
 import { AuthRoute } from "./routes/AuthRoute.jsx";
 import "./App.css";
