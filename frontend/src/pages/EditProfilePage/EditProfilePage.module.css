@@ -1,0 +1,152 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 610px;
+  margin: 36px auto;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.profileBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0f0f0;
+  padding: 16px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.profileInfo {
+  display: flex;
+  gap: 16px;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.username {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.bio {
+  width: 265px;
+  height: 3.2em; /* Высота для 2 строк текста */
+  word-wrap: break-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Ограничивает количество строк текста */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis; /* Добавляет многоточие при обрезке */
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadButton {
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.textareaWrapper {
+  position: relative;
+  height: 64px;
+}
+
+.textarea {
+  height: 100%;
+  resize: none;
+  padding-right: 40px;
+}
+
+.counter {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.75rem;
+  color: gray;
+}
+
+.error {
+  font-size: 0.75rem;
+  color: red;
+  margin-top: -12px;
+  margin-bottom: 12px;
+}
+
+.submitButton {
+  padding: 8px 0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: white;
+  text-align: center;
+}
+
+.active {
+  background: #007bff;
+  cursor: pointer;
+}
+
+.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.notification {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notification button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}

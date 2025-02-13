@@ -27,11 +27,11 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #dbdbdb;
 }
 
 .searchInput {
-  background-color: #f0f0f0;
+  background-color: #fafafa; /* lightgray color from config */
   border-radius: 0.5rem;
   width: 100%;
   padding: 0.625rem 1rem;

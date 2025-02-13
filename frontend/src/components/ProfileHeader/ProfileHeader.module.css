@@ -1,0 +1,83 @@
+.wrapper {
+  display: flex;
+  gap: 16px;
+  padding: 0 16px;
+  align-items: center;
+}
+
+.profileImage {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #dbdbdb;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.username {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.followButton,
+.unfollowButton,
+.messageButton,
+.editButton {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.followButton {
+  background-color: #0095f6;
+  color: white;
+}
+
+.unfollowButton {
+  background-color: #efefef;
+}
+
+.messageButton {
+  background-color: #efefef;
+  text-align: center;
+}
+
+.userStats {
+  display: flex;
+  gap: 16px;
+  font-size: 0.875rem;
+}
+
+.bio,
+.bioPlaceholder {
+  font-size: 0.875rem;
+  word-wrap: break-word;
+}
+
+.websiteLink {
+  display: flex;
+  gap: 8px;
+  color: #00376b;
+  font-size: 0.875rem;
+  margin-top: 16px;
+}
+
+.websiteIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.websiteUrl {
+  text-decoration: none;
+}

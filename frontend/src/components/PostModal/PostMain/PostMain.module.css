@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: calc(100% - 150px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 10px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profileImage {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.moreIcon {
+  width: 24px;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.postText {
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  color: gray;
+  font-size: 11px;
+}
+
+.commentsSection {
+  padding: 10px;
+}
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.commentContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentMeta {
+  display: flex;
+  font-size: 11px;
+  color: gray;
+}
+
+.footer {
+  padding: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.commentInputSection {
+  border-top: 1px solid #dbdbdb;
+}
+
+.commentForm {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.commentInput {
+  flex-grow: 1;
+}
