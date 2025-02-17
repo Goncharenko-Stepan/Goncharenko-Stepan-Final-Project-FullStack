@@ -1,11 +1,13 @@
 import express from "express";
 import "dotenv/config";
 import connectDB from "./db/index.js";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 // ////////////// IMPORT ROUTES ////////////////////
+
 import authRouter from "./routes/authorizationRouter.js";
 import commentRouter from "./routes/commentRouter.js";
-
 import messageRouter from "./routes/messageRouter.js";
 import userRouter from "./routes/userRouter.js";
 import postRouter from "./routes/postRouter.js";
@@ -26,10 +28,21 @@ import attachSocketEvents from "./socket/events.js";
         credentials: true, // Включаем поддержку кук и токенов
       },
     });
+    app.use(express.json());
+
+    // Настройка CORS для разрешения работы с куками
+    app.use(
+      cors({
+        origin: ["http://localhost:5173", "http://localhost:5174"],
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+      })
+    );
+    app.use(cookieParser()); // Обязательно после CORS!
 
     const PORT = process.env.PORT || 3000;
     await connectDB();
-    app.use(express.json());
 
     // /////////////// HOME PAGE ///////////////
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Picker from "emoji-picker-react";
 import upload from "../../assets/upload.png";
 import arrowBack from "../../assets/arrow_back.svg";
-import smiley from "../../assets/smiley.png";
+import emoji from "../../assets/emoji.png";
 import { PhotoCarousel } from "../PhotoCarousel/PhotoCarousel";
 import { useCreatePost } from "../../utils/customHooks";
 import styles from "./CreatePost.module.css";
@@ -104,7 +104,7 @@ export const CreatePost = ({
             <p className={styles.charCount}>{content.length}/2200</p>
             <div className={styles.emojiContainer}>
               <img
-                src={smiley}
+                src={emoji}
                 alt="Emoji"
                 className={styles.emojiIcon}
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}

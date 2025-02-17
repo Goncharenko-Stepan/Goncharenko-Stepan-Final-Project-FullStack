@@ -9,8 +9,8 @@ export const getUserByUsername = async (req, res) => {
 
     let userQuery = User.findOne({ username })
       .select("-password")
-      .populate({ path: "followings", select: "profile_image username _id" })
-      .populate({ path: "followers", select: "profile_image username _id" })
+      .populate({ path: "followings", select: "profileImage username _id" })
+      .populate({ path: "followers", select: "profileImage username _id" })
       .populate({
         path: "posts",
         populate: [{ path: "photos", select: "url" }],
@@ -38,11 +38,11 @@ export const getUserByUsername = async (req, res) => {
             },
             {
               path: "actionMaker",
-              select: "username profile_image",
+              select: "username profileImage",
             },
           ],
         })
-        .populate("search_results", "username profile_image");
+        .populate("searchResults", "username profileImage");
     }
 
     const user = await userQuery;
@@ -60,7 +60,7 @@ export const getUserByUsername = async (req, res) => {
 
 export const searchUsers = async (_req, res) => {
   try {
-    const users = await User.find({}, "username profile_image");
+    const users = await User.find({}, "username profileImage");
     res.status(200).send(users);
   } catch (error) {
     console.error("Error searching users: ", error);

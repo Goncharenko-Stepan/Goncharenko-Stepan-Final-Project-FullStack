@@ -1,15 +1,15 @@
-import home from "../../assets/nav_icons/home/home.svg";
-import homeFill from "../../assets/nav_icons/home/home_fill.svg";
-import search from "../../assets/nav_icons/search/search.svg";
-import searchFill from "../../assets/nav_icons/search/search_fill.svg";
-import explore from "../../assets/nav_icons/explore/explore.svg";
-import exploreFill from "../../assets/nav_icons/explore/explore_fill.svg";
-import messages from "../../assets/nav_icons/messages/messages.svg";
-import messagesFill from "../../assets/nav_icons/messages/messages_fill.svg";
-import notifications from "../../assets/nav_icons/notifications/notifications.svg";
-import notificationsFill from "../../assets/nav_icons/notifications/notifications_fill.png";
-import create from "../../assets/nav_icons/create/create.svg";
-import createFill from "../../assets/nav_icons/create/create_fill.svg";
+import home from "../../assets/navIcons/homeIcons/home.svg";
+import homeFill from "../../assets/navIcons/homeIcons/home_fill.svg";
+import search from "../../assets/navIcons/searchIcons/search.svg";
+import searchFill from "../../assets/navIcons/searchIcons/search_fill.svg";
+import explore from "../../assets/navIcons/exploreIcons/explore.svg";
+import exploreFill from "../../assets/navIcons/exploreIcons/explore_fill.svg";
+import messages from "../../assets/navIcons/messageIcons/messages.svg";
+import messagesFill from "../../assets/navIcons/messageIcons/messages_fill.svg";
+import notifications from "../../assets/navIcons/notificationIcons/notifications.svg";
+import notificationsFill from "../../assets/navIcons/notificationIcons/notifications_fill.png";
+import create from "../../assets/navIcons/createIcons/create.svg";
+import createFill from "../../assets/navIcons/createIcons/create_fill.svg";
 
 const links = [
   {

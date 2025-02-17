@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Navigate } from "react-router";
 import { checkJWTToken } from "../utils/apiUtils/authApi.js";
 

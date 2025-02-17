@@ -46,6 +46,9 @@ export const userLogin = createAsyncThunk(
         { usernameOrEmail, password },
         config
       );
+
+      console.log("Ответ с бэкенда:", data);
+
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

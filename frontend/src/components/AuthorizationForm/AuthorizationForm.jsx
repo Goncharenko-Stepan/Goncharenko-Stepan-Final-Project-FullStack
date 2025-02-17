@@ -1,10 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  userLogin,
+  registerUser,
+  resetPassword,
+} from "../../store/actionCreators/authActionCreators";
 import style from "./AuthorizationForm.module.css";
 
 const AuthorizationForm = ({ type }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -22,7 +28,8 @@ const AuthorizationForm = ({ type }) => {
           fullName: data.fullName,
         };
 
-        console.log("Register data:", dataRegister);
+        console.log("📡 Отправка регистрации:", dataRegister);
+        await dispatch(registerUser(dataRegister)).unwrap();
         navigate("/login");
       } else if (type === "login" && data.usernameOrEmail) {
         const dataLogin = {
@@ -30,24 +37,22 @@ const AuthorizationForm = ({ type }) => {
           password: data.password,
         };
 
-        console.log("Login Data:", dataLogin);
-        navigate("/");
+        console.log("Отправка логина:", dataLogin);
+        await dispatch(userLogin(dataLogin)).unwrap();
+        console.log("Успешный логин, перенаправляем на главную");
+        setTimeout(() => {
+          navigate("/");
+        }, 0);
       } else if (type === "reset" && data.usernameOrEmail) {
         const dataReset = { usernameOrEmail: data.usernameOrEmail };
-        console.log("Reset Password Data:", dataReset);
+        console.log("Отправка запроса на сброс пароля:", dataReset);
+        await dispatch(resetPassword(dataReset)).unwrap();
         navigate("/login");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Ошибка при отправке:", error);
     }
   };
-
-  const btnTitle =
-    type === "register"
-      ? "Sign up"
-      : type === "login"
-      ? "Log in"
-      : "Reset your password";
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={style.formContainer}>
@@ -125,22 +130,12 @@ const AuthorizationForm = ({ type }) => {
         </>
       )}
 
-      {type === "register" && (
-        <>
-          <p className={style.text}>
-            People who use our service may have uploaded your contact
-            information to ICHgram <a className={style.link}>Learn More</a>
-          </p>
-          <p className={style.text}>
-            By signing up, you agree to our <a className={style.link}>Terms</a>,
-            <a className={style.link}> Privacy Policy</a> and
-            <a className={style.link}> Cookies Policy</a>.
-          </p>
-        </>
-      )}
-
       <button className={style.button} type="submit">
-        {btnTitle}
+        {type === "register"
+          ? "Sign up"
+          : type === "login"
+          ? "Log in"
+          : "Reset your password"}
       </button>
     </form>
   );

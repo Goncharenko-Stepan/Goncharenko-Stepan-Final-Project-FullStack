@@ -13,7 +13,7 @@ export const fetchUser = createAsyncThunk(
         },
       };
 
-      const response = await axiosInstance.get(`/users/${username}`, config);
+      const response = await axiosInstance.get(`/user/${username}`, config);
       return response.data[0];
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ export const editProfile = createAsyncThunk(
       formData.append("bio", bio);
 
       const response = await axiosInstance.post(
-        `/users/${username}/edit`,
+        `/user/${username}/edit`,
         formData
       );
       return response.data;

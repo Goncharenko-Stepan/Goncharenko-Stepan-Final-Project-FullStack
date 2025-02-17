@@ -1,13 +1,27 @@
 import { axiosInstance } from "./index.js";
 
+// Централизованная обработка ошибок
+const handleAxiosError = (error) => {
+  console.error("Axios Error:", error);
+  if (error.response) {
+    // Ошибка с ответом от сервера
+    return error.response.data.message || "An unexpected error occurred";
+  } else if (error.request) {
+    // Ошибка при отправке запроса
+    return "No response received from the server";
+  } else {
+    // Неизвестная ошибка
+    return error.message || "An unexpected error occurred";
+  }
+};
+
 // Получение профиля пользователя
 export const fetchProfile = async (username) => {
   try {
     const response = await axiosInstance.get(`/user/${username}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching profile", error);
-    throw error;
+    throw new Error(handleAxiosError(error)); // Используем централизованную обработку ошибок
   }
 };
 
@@ -17,8 +31,7 @@ export const followUser = async (username) => {
     const response = await axiosInstance.post(`/user/${username}/follow`);
     return response.data;
   } catch (error) {
-    console.error("Error following user", error);
-    throw error;
+    throw new Error(handleAxiosError(error));
   }
 };
 
@@ -28,8 +41,7 @@ export const unfollowUser = async (username) => {
     const response = await axiosInstance.delete(`/user/${username}/unFollow`);
     return response.data;
   } catch (error) {
-    console.error("Error unfollowing user", error);
-    throw error;
+    throw new Error(handleAxiosError(error));
   }
 };
 
@@ -39,8 +51,7 @@ export const getAllUsersForSearch = async () => {
     const response = await axiosInstance.get("/user");
     return response.data;
   } catch (error) {
-    console.error("Error getting users for search", error);
-    throw error;
+    throw new Error(handleAxiosError(error));
   }
 };
 
@@ -52,7 +63,6 @@ export const addUserToSearchResults = async (username) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error adding user to search results", error);
-    throw error;
+    throw new Error(handleAxiosError(error));
   }
 };

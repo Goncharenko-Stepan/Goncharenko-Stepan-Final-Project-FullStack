@@ -9,15 +9,15 @@ const initialState = {
   _id: "",
   username: "",
   email: "",
-  full_name: "",
-  profile_image: "",
+  fullName: "",
+  profileImage: "",
   bio: "",
   website: "",
   posts: [],
   notifications: [],
   followers: [],
   followings: [],
-  search_results: [],
+  searchResults: [],
   status: "IDLE",
   error: null,
 };
@@ -38,7 +38,7 @@ const userSlice = createSlice({
       });
     },
     addSearchResult: (state, action) => {
-      state.search_results.push(action.payload);
+      state.searchResults.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -50,18 +50,18 @@ const userSlice = createSlice({
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.status = "FETCHED";
         state.error = null;
-        state._id = action.payload._id;
-        state.username = action.payload.username;
-        state.email = action.payload.email;
-        state.full_name = action.payload.full_name;
-        state.profile_image = action.payload.profile_image;
-        state.bio = action.payload.bio;
-        state.website = action.payload.website;
-        state.posts = action.payload.posts;
-        state.notifications = action.payload.notifications;
-        state.followers = action.payload.followers;
-        state.followings = action.payload.followings;
-        state.search_results = action.payload.search_results;
+        state._id = action.payload?._id ?? "";
+        state.username = action.payload?.username;
+        state.email = action.payload?.email;
+        state.fullName = action.payload?.fullName;
+        state.profileImage = action.payload?.profileImage;
+        state.bio = action.payload?.bio;
+        state.website = action.payload?.website;
+        state.posts = action.payload?.posts;
+        state.notifications = action.payload?.notifications;
+        state.followers = action.payload?.followers;
+        state.followings = action.payload?.followings;
+        state.searchResults = action.payload?.searchResults;
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.status = "FAILED";
@@ -75,7 +75,7 @@ const userSlice = createSlice({
         state.status = "EDITED";
         state.error = null;
         state.username = action.payload.username;
-        state.profile_image = action.payload.profile_image;
+        state.profileImage = action.payload.profileImage;
         state.bio = action.payload.bio;
         state.website = action.payload.website;
       })

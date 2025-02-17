@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import links from "../navLinks";
-import logo from "../../assets/logo.svg";
-import ich from "../../assets/nav_icons/ich.png";
-import default_profile_pic from "../../assets/default_profile_pic.png";
-import { CreatePost } from "../CreatePost/CreatePost";
-import { NotificationsModal } from "../NotificationsModal/NotificationsModal";
-import { SearchModal } from "../SearchModal/SearchModal";
+import logo from "../../../assets/logo.svg";
+import ich from "../../../assets/navIcons/ich.png";
+import default_profile_pic from "../../../assets/profile_pic.png";
+import { CreatePost } from "../../CreatePost/CreatePost.jsx";
+import { NotificationsModal } from "../../NotificationsModal/NotificationsModal.jsx";
+import { SearchModal } from "../../SearchModal/SearchModal";
 import { useFetchUserAfterReload } from "../../../utils/customHooks";
 import styles from "./Navigation.module.css";
 
@@ -88,14 +88,18 @@ export const Navigation = () => {
               />
             )}
           </div>
-          <Link to={`/profile/${user?.username}`} className={styles.navItem}>
-            <img
-              src={user?.profile_image || default_profile_pic}
-              alt="Profile"
-              className={styles.profileImage}
-            />
-            <span className={styles.navText}>Profile</span>
-          </Link>
+          {user._id ? (
+            <Link to={`/profile/${user?.username}`} className={styles.navItem}>
+              <img
+                src={user?.profile_image || default_profile_pic}
+                alt="Profile"
+                className={styles.profileImage}
+              />
+              <span className={styles.navText}>Profile</span>
+            </Link>
+          ) : (
+            <span>Loading</span>
+          )}
         </div>
       </div>
     </div>

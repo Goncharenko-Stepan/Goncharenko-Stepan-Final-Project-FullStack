@@ -7,6 +7,7 @@ import { createPost } from "../store/actionCreators/postActionCreators";
 import { addPost } from "../store/slices/userSlice";
 
 // Хук для отслеживания ширины экрана
+
 export const useScreenWidth = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -28,8 +29,11 @@ export const useFetchUserAfterReload = (user) => {
     const checkToken = async () => {
       try {
         if (!user.username) {
-          const { data } = await axiosInstance.get("/auth/check-access-token");
-          dispatch(fetchUser({ username: data.username }));
+          const { data } = await axiosInstance.get("/auth/checkAccessToken");
+
+          console.log("Username", data.username);
+
+          dispatch(fetchUser({ username: data.username.username }));
         }
       } catch (error) {
         if (error.response?.status === 401) {

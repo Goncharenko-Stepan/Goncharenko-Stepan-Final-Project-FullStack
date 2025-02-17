@@ -1,60 +1,50 @@
+import React from "react";
 import { useLocation } from "react-router-dom";
-import { MainRouter } from "./routes/MainRouter.jsx";
-import React, { useEffect, useState } from "react";
-import { PrivateRoute } from "./routes/PrivateRoute.jsx";
-import { AuthRoute } from "./routes/AuthRoute.jsx";
-import "./App.css";
+import { MainRouter } from "./routes/MainRouter";
+import { Navigation } from "./components/Layout/Navigation/Navigation.jsx";
+import { Footer } from "./components/Layout/Footer/Footer.jsx";
+import { useScreenWidth } from "./utils/customHooks";
+import { AuthRoute } from "./routes/AuthRoute";
+import { PrivateRoute } from "./routes/PrivateRoute";
+import "./App.css"; // Подключаем обычные стили
 
-function App() {
+const App = () => {
   const location = useLocation();
+  const width = useScreenWidth();
 
-  // Состояние для хранения ширины экрана
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  if (
-    location.pathname === "/login" ||
-    location.pathname === "/register" ||
-    location.pathname === "/reset"
-  ) {
+  // Если пользователь на страницах логина, регистрации или сброса пароля
+  if (["/login", "/register", "/reset"].includes(location.pathname)) {
     return (
       <AuthRoute>
         <MainRouter />
       </AuthRoute>
     );
-  } else {
-    if (width > 768) {
-      return (
-        <PrivateRoute>
-          <div className="app-container">
-            <div className="main-container">
+  }
+
+  return (
+    <PrivateRoute>
+      <div className="container">
+        {width > 768 ? (
+          <div className="inner-container">
+            <div className="flex md:flex-row">
+              <Navigation />
               <div className="main-content">
                 <MainRouter />
               </div>
             </div>
+            <Footer />
           </div>
-        </PrivateRoute>
-      );
-    } else {
-      return (
-        <PrivateRoute>
-          <div className="app-container">
-            <div className="main-container-mobile">
+        ) : (
+          <div className="inner-container">
+            <div className="mobile-main">
               <MainRouter />
             </div>
+            <Navigation />
           </div>
-        </PrivateRoute>
-      );
-    }
-  }
-}
+        )}
+      </div>
+    </PrivateRoute>
+  );
+};
 
 export default App;
