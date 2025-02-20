@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   registerUser,
   resetPassword,
-  userLogin,
+  loginUser, // Убедись, что тут loginUser
 } from "../actionCreators/authActionCreators.js";
 
 const initialState = {
@@ -29,15 +29,17 @@ const authSlice = createSlice({
         console.log(action);
         state.error = action.error.message || "Registration failed";
       })
-      .addCase(userLogin.pending, (state) => {
+
+      // Исправлено на loginUser
+      .addCase(loginUser.pending, (state) => {
         state.status = "LOADING";
         state.error = null;
       })
-      .addCase(userLogin.fulfilled, (state) => {
+      .addCase(loginUser.fulfilled, (state) => {
         state.status = "SUCCEEDED";
         state.error = null;
       })
-      .addCase(userLogin.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.status = "FAILED";
         console.log(action);
         state.error = action.error.message || "Login failed";
@@ -47,9 +49,7 @@ const authSlice = createSlice({
         state.status = "LOADING";
         state.error = null;
       })
-
       .addCase(resetPassword.fulfilled, () => initialState)
-
       .addCase(resetPassword.rejected, (state, action) => {
         state.status = "FAILED";
         console.log(action);

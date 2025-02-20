@@ -24,23 +24,28 @@ export const useScreenWidth = () => {
 export const useFetchUserAfterReload = (user) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isChecking, setIsChecking] = useState(false);
 
   useEffect(() => {
     const checkToken = async () => {
+      if (isChecking || !user.username) return;
+
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      setIsChecking(true);
       try {
-        if (!user.username) {
-          const { data } = await axiosInstance.get("/auth/checkAccessToken");
-
-          console.log("Username", data.username);
-
-          dispatch(fetchUser({ username: data.username.username }));
-        }
+        const { data } = await axiosInstance.get("/auth/checkAccessToken");
+        console.log("Username:", data.username);
+        dispatch(fetchUser({ username: data.username }));
       } catch (error) {
         if (error.response?.status === 401) {
           navigate("/login", { replace: true });
         } else {
-          console.error("Unexpected error during auth check:", error);
+          console.error("Ошибка проверки токена:", error);
         }
+      } finally {
+        setIsChecking(false);
       }
     };
 

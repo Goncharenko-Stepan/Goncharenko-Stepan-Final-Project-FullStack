@@ -1,14 +1,47 @@
 import { axiosInstance } from "./index.js";
 
-export const checkJWTToken = async () => {
+const API_URL = "/auth";
+
+export const loginUser = async (usernameOrEmail, password) => {
   try {
-    const result = await axiosInstance.get("/auth/checkAccessToken");
+    const response = await axiosInstance.post(`${API_URL}/login`, {
+      usernameOrEmail,
+      password,
+    });
 
-    console.log("Result: ", result);
+    console.log("Ответ сервера при логине:", response.data);
 
-    return result.data.message === "Token is valid";
+    if (response.data.token) {
+      console.log("Сохраняем токен:", response.data.token);
+      localStorage.setItem("token", response.data.token);
+    } else {
+      console.error("Сервер не вернул токен");
+    }
+
+    return response.data;
   } catch (error) {
-    console.error("Token is invalid", error);
-    return false;
+    console.error("Ошибка при логине", error);
+    throw error;
+  }
+};
+
+export const checkJWTToken = async () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get(`${API_URL}/checkAccessToken`);
+    return response.data;
+  } catch (error) {
+    if (error.response?.status === 401) {
+      console.warn("Token is expired or invalid");
+      localStorage.removeItem("token");
+    } else {
+      console.error("Unexpected error while checking token:", error);
+    }
+    return null;
   }
 };

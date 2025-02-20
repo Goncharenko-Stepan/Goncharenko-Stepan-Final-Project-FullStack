@@ -1,6 +1,5 @@
-import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosInstance } from "../../utils/apiUtils";
+import { axiosInstance } from "../../utils/apiUtils/index.js";
 
 // Регистрация пользователя
 export const registerUser = createAsyncThunk(
@@ -31,26 +30,22 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// Логин пользователя
-export const userLogin = createAsyncThunk(
+export const loginUser = createAsyncThunk(
   "auth/login",
   async ({ usernameOrEmail, password }, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axiosInstance.post(
-        `/auth/login`,
-        { usernameOrEmail, password },
-        config
-      );
+      const response = await axiosInstance.post("/auth/login", {
+        usernameOrEmail,
+        password,
+      });
 
-      console.log("Ответ с бэкенда:", data);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token); // Сохраняем токен
+      }
 
-      return data;
+      return response.data; // Возвращаем данные для редьюсера
     } catch (error) {
+      console.error("Login failed", error);
       if (axios.isAxiosError(error)) {
         if (error.response && error.response.data.message) {
           return rejectWithValue(error.response.data.message);

@@ -1,40 +1,48 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
 .card {
   padding: 2em;
 }
 
-.read-the-docs {
+.readTheDocs {
   color: #888;
 }
-.app-container {
+
+.appContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
 /* Основной контейнер для десктопной версии */
-.main-container {
+.mainContainer {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 176px);
 }
 
 /* Контент для основной части страницы на десктопах */
-.main-content {
+.mainContent {
   width: 100%;
   min-height: calc(100vh - 176px);
 }
 
 /* Основной контейнер для мобильной версии */
-.main-container-mobile {
+.mainContainerMobile {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   height: calc(100vh - 81px);
+}
+
+.innerContainer {
+  width: 100%;
+}
+
+.containerNavigation {
+  display: flex;
+  flex-direction: row;
+}
+
+.mobileMain {
+  display: flex;
+  flex-direction: column;
 }

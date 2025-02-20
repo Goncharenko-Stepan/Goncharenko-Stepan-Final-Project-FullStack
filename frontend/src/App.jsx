@@ -25,18 +25,18 @@ const App = () => {
     <PrivateRoute>
       <div className="container">
         {width > 768 ? (
-          <div className="inner-container">
-            <div className="flex md:flex-row">
+          <div className="innerContainer">
+            <div className="containerNavigation">
               <Navigation />
-              <div className="main-content">
+              <div className="mainContent">
                 <MainRouter />
               </div>
             </div>
             <Footer />
           </div>
         ) : (
-          <div className="inner-container">
-            <div className="mobile-main">
+          <div className="innerContainer">
+            <div className="mobileMain">
               <MainRouter />
             </div>
             <Navigation />

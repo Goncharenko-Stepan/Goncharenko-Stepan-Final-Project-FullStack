@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
-  userLogin,
+  loginUser,
   registerUser,
   resetPassword,
 } from "../../store/actionCreators/authActionCreators";
@@ -12,15 +12,18 @@ const AuthorizationForm = ({ type }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Настройки формы через react-hook-form
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
+    register, // Метод для привязки полей формы
+    handleSubmit, // Метод для обработки отправки формы
+    formState: { errors }, // Ошибки валидации формы
   } = useForm();
 
+  // Функция обработки отправки формы
   const onSubmit = async (data) => {
     try {
       if (type === "register" && data.username && data.email && data.fullName) {
+        //  Если это регистрация, собираем данные и отправляем
         const dataRegister = {
           username: data.username,
           email: data.email,
@@ -28,26 +31,31 @@ const AuthorizationForm = ({ type }) => {
           fullName: data.fullName,
         };
 
-        console.log("📡 Отправка регистрации:", dataRegister);
-        await dispatch(registerUser(dataRegister)).unwrap();
-        navigate("/login");
+        console.log("Отправка регистрации:", dataRegister);
+        await dispatch(registerUser(dataRegister)).unwrap(); // Отправляем запрос на регистрацию
+
+        navigate("/login"); // После регистрации переходим на страницу логина
       } else if (type === "login" && data.usernameOrEmail) {
+        // Если это логин, собираем данные и отправляем
         const dataLogin = {
           usernameOrEmail: data.usernameOrEmail,
           password: data.password,
         };
 
         console.log("Отправка логина:", dataLogin);
-        await dispatch(userLogin(dataLogin)).unwrap();
+        await dispatch(loginUser(dataLogin)).unwrap(); // Отправляем запрос на логин
         console.log("Успешный логин, перенаправляем на главную");
+
         setTimeout(() => {
-          navigate("/");
+          navigate("/"); // Перенаправляем на главную страницу после логина
         }, 0);
       } else if (type === "reset" && data.usernameOrEmail) {
+        // Если это сброс пароля, отправляем email или username
+
         const dataReset = { usernameOrEmail: data.usernameOrEmail };
         console.log("Отправка запроса на сброс пароля:", dataReset);
-        await dispatch(resetPassword(dataReset)).unwrap();
-        navigate("/login");
+        await dispatch(resetPassword(dataReset)).unwrap(); // Отправляем запрос на сброс пароля
+        navigate("/login"); // После сброса пароля переходим на страницу логина
       }
     } catch (error) {
       console.error("Ошибка при отправке:", error);
@@ -56,8 +64,10 @@ const AuthorizationForm = ({ type }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={style.formContainer}>
+      {/* 🟢 Форма регистрации (отображается только при type === "register") */}
       {type === "register" && (
         <>
+          {/* Поле Email */}
           <input
             type="email"
             {...register("email", { required: "Email is required" })}
@@ -68,6 +78,7 @@ const AuthorizationForm = ({ type }) => {
             <span className={style.error}>{errors.email.message}</span>
           )}
 
+          {/* Поле полного имени */}
           <input
             {...register("fullName", {
               required: "Name is required",
@@ -80,6 +91,7 @@ const AuthorizationForm = ({ type }) => {
             <span className={style.error}>{errors.fullName.message}</span>
           )}
 
+          {/* Поле имени пользователя */}
           <input
             {...register("username", {
               required: "Username is required",
@@ -94,8 +106,10 @@ const AuthorizationForm = ({ type }) => {
         </>
       )}
 
+      {/* 🟢 Форма логина и сброса пароля (отображается при type !== "register") */}
       {type !== "register" && (
         <>
+          {/* Поле ввода логина или email */}
           <input
             {...register("usernameOrEmail", {
               required: "Username or email is required",
@@ -111,6 +125,7 @@ const AuthorizationForm = ({ type }) => {
         </>
       )}
 
+      {/* 🟢 Поле пароля (скрывается только при сбросе пароля) */}
       {type !== "reset" && (
         <>
           <input
@@ -130,12 +145,14 @@ const AuthorizationForm = ({ type }) => {
         </>
       )}
 
+      {/* 🟢 Кнопка отправки формы */}
       <button className={style.button} type="submit">
         {type === "register"
-          ? "Sign up"
+          ? "Sign up" // Текст кнопки для регистрации
           : type === "login"
-          ? "Log in"
-          : "Reset your password"}
+          ? "Log in" // Текст кнопки для входа
+          : "Reset your password"}{" "}
+        {/* Текст кнопки для сброса пароля */}
       </button>
     </form>
   );

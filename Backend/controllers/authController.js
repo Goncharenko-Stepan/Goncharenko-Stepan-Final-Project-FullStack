@@ -9,73 +9,49 @@ export const loginUser = async (req, res) => {
   try {
     const { usernameOrEmail, password } = req.body;
 
-    // Проверяем, что usernameOrEmail и password переданы
     if (!usernameOrEmail || !password) {
-      res.status(400).send("Username or email and password is required");
-      return;
+      return res
+        .status(400)
+        .json({ message: "Username or email and password is required" });
     }
 
-    // Логируем поступившие данные для отладки
-    console.log("Login attempt with usernameOrEmail:", usernameOrEmail);
-
-    // Проверяем, существует ли пользователь (по username или email)
     const user = await User.findOne({
       $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
     });
 
-    // Если пользователь не найден
     if (!user) {
-      console.log("User not found");
-      res.status(404).send("User not found");
-      return;
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Проверяем правильность пароля
     const passwordIsValid = await bcrypt.compare(password, user.password);
-    console.log("Password validation result:", passwordIsValid);
-
     if (!passwordIsValid) {
-      console.log("Wrong password or username");
-      res.status(401).send("Wrong password or username");
-      return;
+      return res.status(401).json({ message: "Wrong password or username" });
     }
 
-    // Проверяем наличие JWT_KEY в переменных окружения
-    if (process.env.JWT_SECRET) {
-      console.log("JWT_SECRET is set, proceeding with token generation...");
-
-      const info = { username: user.username, id: user._id.toString() };
-
-      // Генерация JWT токена
-      const token = jwt.sign(info, process.env.JWT_SECRET, { expiresIn: "1h" });
-      console.log("Token generated:", token);
-
-      // Устанавливаем cookie с токеном
-      res.cookie("token", token, {
-        httpOnly: true, // Запрещает доступ к cookie через JavaScript
-        secure: false, // Для разработки на локальном сервере используем false (если на HTTPS, нужно ставить true)
-        sameSite: "strict",
-        maxAge: 3600 * 1000, // 1 час в миллисекундах
-        path: "/",
-      });
-
-      // Возвращаем успешный ответ с данными пользователя
-      res.status(200).json({
-        message: "Successfully logged in with token",
-        data: {
-          username: user.username,
-          id: user._id,
-          profile_image: user.profileImage,
-        },
-      });
-    } else {
-      console.error("JWT_SECRET is not set in environment variables.");
-      res.status(401).send("Something went wrong");
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT_SECRET is not set" });
     }
+
+    const token = jwt.sign(
+      { username: user.username, id: user._id.toString() },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    console.log("Токен создан:", token); // 👈 ЛОГ ВАЖЕН!
+
+    res.status(200).json({
+      message: "Successfully logged in",
+      token,
+      user: {
+        username: user.username,
+        id: user._id,
+        profile_image: user.profileImage,
+      },
+    });
   } catch (error) {
-    // Логируем ошибки, если что-то пошло не так
     console.error("Error logging in user:", error);
-    res.status(500).send("Error logging in");
+    res.status(500).json({ message: "Error logging in" });
   }
 };
 
@@ -152,7 +128,7 @@ export const resetPassword = async (req, res) => {
       text: "<b>Reset your password - </b> <a href='/'>Link</a>", // Текст письма
     };
 
-    const info = await transporter.sendMail(mailOptions);
+    const info = transporter.sendMail(mailOptions);
     res.status(201).json({
       msg: "Email sent",
       info: info.messageId,
