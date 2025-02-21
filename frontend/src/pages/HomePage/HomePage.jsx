@@ -28,33 +28,39 @@ export const HomePage = () => {
   const loadMoreRef = useRef(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const { _id, notifications } = useSelector((state) => state.user);
-  const location = useLocation();
+  const { _id, notifications } = useSelector((state) => state.user); // Получаем данные о пользователе из Redux
+  const location = useLocation(); // Получаем текущую локацию для ссылок
 
+  // Эффект для загрузки постов
   useEffect(() => {
     const loadPosts = async () => {
       try {
+        // Запрос к API для получения постов
         const result = await fetchFollowedPosts(page);
-        if (result && page === 1) setIsInitialLoading(false);
+        if (result && page === 1) setIsInitialLoading(false); // Если это первая загрузка, изменяем состояние загрузки
         setPosts((prevPosts) => {
+          // Добавляем новые посты в список, если их нет в предыдущем списке
           const newPosts = result?.filter(
             (newPost) => !prevPosts?.some((post) => post._id === newPost._id)
           );
           return newPosts ? [...prevPosts, ...newPosts] : [...prevPosts];
         });
+        // Если постов меньше 10, останавливаем загрузку
         if (result?.length < 10) setHasMore(false);
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error("Error fetching posts:", error); // Логируем ошибку в консоль
       }
     };
 
     loadPosts();
-  }, [page]);
+  }, [page]); // Эффект срабатывает при изменении страницы
 
+  // Эффект для отслеживания "докачивания" постов при прокрутке
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore) {
+          // Когда элемент на экране и есть еще посты, увеличиваем страницу
           setPage((prevPage) => prevPage + 1);
         }
       },
@@ -66,8 +72,9 @@ export const HomePage = () => {
     return () => {
       if (loadMoreRef.current) observer.unobserve(loadMoreRef.current);
     };
-  }, [hasMore]);
+  }, [hasMore]); // Следим за состоянием hasMore
 
+  // Если постов нет и загрузка завершена, показываем сообщение
   if (posts.length === 0 && !isInitialLoading) {
     return (
       <div className={styles.emptyContainer}>
@@ -75,7 +82,7 @@ export const HomePage = () => {
         <p className={styles.emptyText}>Follow users to see their posts here</p>
       </div>
     );
-  } else if (posts.length === 0) return <HomePageSkeleton />;
+  } else if (posts.length === 0) return <HomePageSkeleton />; // Если постов нет и идет загрузка, показываем skeleton
 
   return (
     <div className={styles.container}>
@@ -86,15 +93,17 @@ export const HomePage = () => {
           <img
             src={searchIcon}
             alt="Search"
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            onClick={() => setIsSearchOpen(!isSearchOpen)} // Тогглим поиск
           />
           <img
             src={notificationsIcon}
             alt="Notifications"
-            onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+            onClick={() => setIsNotificationsOpen(!isNotificationsOpen)} // Тогглим уведомления
           />
         </div>
       </div>
+
+      {/* Модальные окна для поиска и уведомлений */}
       {isSearchOpen && (
         <SearchModal
           isSearchOpen={isSearchOpen}
@@ -108,7 +117,9 @@ export const HomePage = () => {
           notifications={notifications}
         />
       )}
+
       <div className={styles.postsGrid}>
+        {/* Рендерим посты */}
         {posts.map((post) => (
           <div key={post._id} className={styles.postContainer}>
             <Link
@@ -143,6 +154,7 @@ export const HomePage = () => {
               )}
             </Link>
             <div className={styles.reactions}>
+              {/* Иконки лайка и комментариев */}
               <img
                 src={
                   _id && post.likes && isLikedByUser(post.likes, _id)
@@ -174,8 +186,11 @@ export const HomePage = () => {
             </p>
           </div>
         ))}
+        {/* Элемент для отслеживания "докачивания" */}
         <div ref={loadMoreRef} className={styles.loadMoreTrigger}></div>
       </div>
+
+      {/* Если посты закончились */}
       {!hasMore && (
         <div className={styles.doneContainer}>
           <img src={done} alt="done" className={styles.doneIcon} />

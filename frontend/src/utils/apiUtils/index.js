@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios from "axios"; // Здесь мы импортируем axios
 
+// Создаём экземпляр axios с базовым URL
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:3000",
 });
@@ -13,6 +14,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
+// Функция для проверки токена
 export async function checkToken() {
   const token = localStorage.getItem("token");
 

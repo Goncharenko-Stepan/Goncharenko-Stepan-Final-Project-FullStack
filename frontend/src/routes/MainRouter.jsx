@@ -27,7 +27,7 @@ export const MainRouter = () => {
         <Route path="/reset" element={<ResetPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        Protected Routes
+        {/* Auth роуты */}
         <Route path="/" element={<HomePage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
         <Route path="/profile/:username/edit" element={<EditProfilePage />} />
@@ -35,7 +35,7 @@ export const MainRouter = () => {
         <Route path=":username" element={<MessagesMain />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/post/:postId" element={<PostPage />} />
-        Error Route
+        {/* Роуты ошибки */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
 

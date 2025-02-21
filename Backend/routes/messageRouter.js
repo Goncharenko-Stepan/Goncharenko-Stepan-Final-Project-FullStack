@@ -14,6 +14,6 @@ const router = express.Router();
 router.post("/sendMessage", authMiddleware, sendMessage);
 router.get("/getMessages/:recipientId", authMiddleware, getMessages);
 router.delete("/deleteMessage/:messageId", authMiddleware, deleteMessage);
-router.post("/getUserChats", authMiddleware, getUserChats);
+router.get("/getUserChats", authMiddleware, getUserChats);
 router.post("/getChat", authMiddleware, getChat);
 export default router;

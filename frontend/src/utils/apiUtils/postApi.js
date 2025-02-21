@@ -41,13 +41,12 @@ export const fetchFollowedPosts = async (page) => {
 };
 
 // Получение случайных постов
-export const getRandomPosts = async (fetchCount) => {
+export const getRandomPosts = async (count) => {
   try {
-    const response = await axiosInstance.get(
-      `/post/random?count=${fetchCount}`
-    );
+    const response = await axiosInstance.get(`/post/random?count=${count}`);
     return response.data;
   } catch (error) {
-    console.error("Error getting random posts", error);
+    console.error("Ошибка получения случайных постов:", error);
+    return []; // Если ошибка — возвращаем пустой массив
   }
 };
